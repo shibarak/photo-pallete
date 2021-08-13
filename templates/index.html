@@ -1,0 +1,44 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends 'bootstrap/base.html' %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="/static/css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">{% endblock %}
+{% block title %}Photo Palette Generator{% endblock %}
+{% block content %}
+<h1>Photo Palette Generator</h1>
+<div class="container photo-disp">
+    <img src="{{ path }}">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td>Color</td>
+            <td>Hex Value</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for hex in list:%}
+        <tr>
+            <td style="padding: 5px;"><span class="color-box" style="background-color: {{hex}}; color: {{ hex }}">i</span></td>
+            <td>{{hex}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="photo-form">
+    {{ wtf.quick_form(form, novalidate=True) }}
+    </div>
+</div>
+<div class="footer">
+        {% block footer %}
+        <span>Copyright © Jesse Schlaud {{ current_year }}</span>
+        {% endblock %}
+</div>
+{% endblock %}
+
+<span class="footer">Copyright © Jesse Schlaud {{ current_year }}</span>
+
+
+

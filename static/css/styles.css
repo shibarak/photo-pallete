@@ -1,0 +1,72 @@
+body {
+    background-color: #ecf0f1;
+}
+
+.photo-disp {
+    text-align: center;
+    background-color: white;
+    width: 85%;
+    margin: 80px auto 40px auto;
+    padding: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    font-weight: 300;
+
+}
+
+h1 {
+    background-color: #16a085;
+    color: #ecf0f1;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 60px;
+    letter-spacing: 4px;
+}
+
+.photo-disp img {
+
+    height: 450px;
+    margin: 50px;
+
+}
+
+.photo-disp table{
+    margin: 20px auto;
+    width: 90%;
+}
+
+.photo-disp thead tr {
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+.photo-disp thead td {
+    width: 50%;
+}
+
+.photo-form {
+    margin: 50px auto;
+    width: 90%;
+    text-align: left;
+    font-weight: 400;
+}
+
+.photo-form select{
+    width: 90px;
+}
+
+.color-box {
+ width: 100%;
+ display: block;
+ font-size: 25.5px;
+}
+
+.footer {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 40px;
+}
