@@ -26,8 +26,9 @@ class PhotoForm(FlaskForm):
     colors = SelectField("Number of colors:", choices=CHOICES, validators=[DataRequired()])
     run = SubmitField("Run")
 
-
-
+#check if file type is allowed
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #  Makes the "current_year" variable available in every template#
 @app.context_processor
@@ -41,15 +42,19 @@ def home():
     if form.validate_on_submit():
         # get the uploaded file, create a secure filename, and save file to the upload direcory
         file = request.files["photo"]
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        path = f"static/images/{filename}"
-        # create a colorthief oblect from the uploaded file and get the color palette in RGB
-        im = ColorThief(path)
-        rgb_list = im.get_palette(color_count=int(form.colors.data))
-        # Convert RGP color palette to HEX
-        hex_list = ["#"+"".join(f'{i:02x}' for i in rgb) for rgb in rgb_list]
-        return render_template("index.html", form=form, path=path, list=hex_list)
+        if allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            path = f"static/images/{filename}"
+            # create a colorthief oblect from the uploaded file and get the color palette in RGB
+            im = ColorThief(path)
+            rgb_list = im.get_palette(color_count=int(form.colors.data))
+            # Convert RGP color palette to HEX
+            hex_list = ["#"+"".join(f'{i:02x}' for i in rgb) for rgb in rgb_list]
+            return render_template("index.html", form=form, path=path, list=hex_list)
+        else:
+            flash(message="File type not supported. Please choose a valid image file.")
+            return render_template("index.html", form=form)
     return render_template("index.html", form=form, path="static/dog-img.jpg", list=dog_hex)
 
 

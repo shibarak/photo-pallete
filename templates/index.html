@@ -28,6 +28,13 @@
         </tbody>
     </table>
     <div class="photo-form">
+     {% with messages = get_flashed_messages() %}
+        {% if messages: %}
+        {% for message in messages: %}
+        <p style="color: #c0392b"><em>{{ message }}</em></p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
     {{ wtf.quick_form(form, novalidate=True) }}
     </div>
 </div>
