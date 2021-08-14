@@ -40,16 +40,16 @@ def inject_now():
 def home():
     form = PhotoForm()
     if form.validate_on_submit():
-        # get the uploaded file, create a secure filename, and save file to the upload direcory
+        # get the uploaded file, create a secure filename, and save file to the upload directory
         file = request.files["photo"]
         if allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             path = f"static/images/{filename}"
-            # create a colorthief oblect from the uploaded file and get the color palette in RGB
+            # create a colorthief object from the uploaded file and get the color palette in RGB
             im = ColorThief(path)
             rgb_list = im.get_palette(color_count=int(form.colors.data))
-            # Convert RGP color palette to HEX
+            # Convert RGB color palette to HEX
             hex_list = ["#"+"".join(f'{i:02x}' for i in rgb) for rgb in rgb_list]
             return render_template("index.html", form=form, path=path, list=hex_list)
         else:
